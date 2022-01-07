@@ -27,9 +27,14 @@ public class Player : MonoBehaviour
  
     public void ContinuousMovement()
     {
-        //playerRb.MovePosition(transform.position + transform.forward * moveSpeed * Time.deltaTime);
-        Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        playerRb.MovePosition(transform.position + input * Time.deltaTime * moveSpeed);
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+        if (Input.GetAxisRaw("Horizontal") > 0f || Input.GetAxisRaw("Horizontal") < 0f) {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(h, 0) * moveSpeed;
+        }
+        else if (Input.GetAxisRaw("Vertical") > 0f || Input.GetAxisRaw("Vertical") < 0f) {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0, v) * moveSpeed;
+        }
     }
 
     void MoveRotation()
